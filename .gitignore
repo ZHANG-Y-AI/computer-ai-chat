@@ -1,0 +1,37 @@
+# Secrets and local configuration
+.env
+.env.*
+**/.env
+**/.env.*
+!**/.env.example
+*.key
+*.pem
+*.p12
+hua-springboot3/src/main/resources/application*.yml
+hua-springboot3/src/main/resources/application*.yaml
+!hua-springboot3/src/main/resources/application.example.yml
+!hua-springboot3/src/main/resources/application-druid.example.yml
+
+# Private database dump and runtime data
+hua-springboot3/sql/huacai-fast-sv3.sql
+uploads/
+logs/
+*.log
+
+# Build artifacts and dependencies
+**/target/
+**/node_modules/
+**/dist/
+**/.vite/
+*.class
+*.jar
+
+# IDE and operating system files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+Thumbs.db
+
+# Third-party reference checkout
+_ruoyi-vue3-ref/

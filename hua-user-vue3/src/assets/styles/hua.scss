@@ -1,0 +1,51 @@
+/* 编程对话小助手样式 */
+
+// 主题色
+$primary-color: #409eff;
+$success-color: #67c23a;
+$warning-color: #e6a23c;
+$danger-color: #f56c6c;
+$info-color: #909399;
+
+// 字体
+$font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+// 基础样式
+body {
+  font-family: $font-family;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+// 编程对话小助手特定样式
+.hua-container {
+  padding: 20px;
+}
+
+.hua-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #ebeef5;
+  padding-bottom: 10px;
+}
+
+.hua-content {
+  min-height: 400px;
+}
+
+.hua-footer {
+  margin-top: 20px;
+  text-align: center;
+  color: #909399;
+  font-size: 12px;
+}
+
+
+
+
+
+
+
+
+
+
+

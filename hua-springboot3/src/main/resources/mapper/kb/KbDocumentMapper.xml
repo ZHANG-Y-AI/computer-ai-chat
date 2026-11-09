@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hua.kb.mapper.KbDocumentMapper">
+
+    <resultMap id="KbDocumentResult" type="com.hua.kb.domain.KbDocument">
+        <id property="docId" column="doc_id"/>
+        <result property="module" column="module"/>
+        <result property="title" column="title"/>
+        <result property="fileName" column="file_name"/>
+        <result property="filePath" column="file_path"/>
+        <result property="indexStatus" column="index_status"/>
+        <result property="status" column="status"/>
+        <result property="createBy" column="create_by"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateBy" column="update_by"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <sql id="selectKbDocumentVo">
+        select doc_id, module, title, file_name, file_path, index_status, status,
+               create_by, create_time, update_by, update_time, remark
+        from kb_document
+    </sql>
+
+    <select id="selectKbDocumentById" resultMap="KbDocumentResult">
+        <include refid="selectKbDocumentVo"/>
+        where doc_id = #{docId}
+    </select>
+
+    <select id="selectKbDocumentList" resultMap="KbDocumentResult">
+        <include refid="selectKbDocumentVo"/>
+        <where>
+            <if test="module != null and module != ''">and module = #{module}</if>
+            <if test="title != null and title != ''">and title like concat('%', #{title}, '%')</if>
+            <if test="status != null and status != ''">and status = #{status}</if>
+            <if test="indexStatus != null and indexStatus != ''">and index_status = #{indexStatus}</if>
+        </where>
+        order by doc_id desc
+    </select>
+
+    <insert id="insertKbDocument" parameterType="com.hua.kb.domain.KbDocument" useGeneratedKeys="true" keyProperty="docId">
+        insert into kb_document (module, title, file_name, file_path, index_status, status,
+                                 create_by, create_time, remark)
+        values (#{module}, #{title}, #{fileName}, #{filePath}, #{indexStatus}, #{status},
+                #{createBy}, sysdate(), #{remark})
+    </insert>
+
+    <update id="updateKbDocument" parameterType="com.hua.kb.domain.KbDocument">
+        update kb_document
+        <set>
+            <if test="title != null">title = #{title},</if>
+            <if test="indexStatus != null">index_status = #{indexStatus},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            update_by = #{updateBy},
+            update_time = sysdate()
+        </set>
+        where doc_id = #{docId}
+    </update>
+
+    <delete id="deleteKbDocumentById">
+        delete from kb_document where doc_id = #{docId}
+    </delete>
+
+    <select id="countByIndexStatus" resultType="java.util.HashMap">
+        select index_status as ikey, count(1) as mcnt
+        from kb_document
+        <where>
+            <if test="module != null and module != ''">and module = #{module}</if>
+        </where>
+        group by index_status
+    </select>
+
+    <select id="countByModule" resultType="java.util.HashMap">
+        select module as mkey, count(1) as mcnt
+        from kb_document
+        <where>
+            <if test="module != null and module != ''">and module = #{module}</if>
+        </where>
+        group by module
+    </select>
+</mapper>
